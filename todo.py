@@ -4,8 +4,8 @@ import ConfigParser
 import datetime
 import os
 import os.path as osp
-import platform
 import pkg_resources
+import platform
 import re
 import shlex
 import shutil

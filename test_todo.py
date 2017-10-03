@@ -4,18 +4,17 @@ import os.path as osp
 import shutil
 import tempfile
 
-import pytest
 
-
+todo = None
 TMP_DIR = None
 
 
 def setup_module(module):
+    global todo
     global TMP_DIR
     TMP_DIR = tempfile.mkdtemp()
     os.environ['HOME'] = TMP_DIR
-    import todo
-    module.todo = todo
+    import todo  # NOQA
 
 
 def teardown_module(module):
