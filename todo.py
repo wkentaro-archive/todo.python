@@ -51,22 +51,30 @@ def parse_todo(content):
             text = m.groups()[1]
             todos.append([text, done, section, ''])
         else:
-            todos[-1][3] += '\n' + line  # detail
+            todos[-1][3] += line  # detail
 
     date = date or datetime.date.today()
 
     return date, todos
 
 
-def render_todo(date, todos):
+def render_todo(date, todos, color=False):
+    date = date.strftime('# %Y-%m-%d')
+    if color:
+        date = click.style(date, 'green')
+
     todo = []
     for text, done, section, detail in todos:
         if section is not None:
             if section not in todo:
                 todo.append('')
+                if color:
+                    section = click.style(section, 'blue')
                 todo.append(section)
                 todo.append('')
         cross = 'x' if done else ' '
+        if color and not done:
+            text = click.style(text, underline=True)
         todo.append('- [{:s}] {:s}'.format(cross, text))
         if detail:
             todo.append('')
@@ -75,10 +83,10 @@ def render_todo(date, todos):
     todo = '\n'.join(todo)
 
     content = '''\
-# {date}
+{date}
 {todo}
 '''
-    content = content.format(date=date.strftime('%Y-%m-%d'), todo=todo)
+    content = content.format(date=date, todo=todo)
 
     return content
 
@@ -212,8 +220,8 @@ def cmd_show():
     _archive()
     readme_fn = osp.join(CACHE_DIR, 'README.md')
     date, todos = parse_todo(open(readme_fn).read())
-    content = render_todo(date, todos)
-    print(content)
+    content = render_todo(date, todos, color=True)
+    click.echo_via_pager(content.decode('utf-8'), color=True)
 
 
 @cli.command('edit', help='Edit todo')
