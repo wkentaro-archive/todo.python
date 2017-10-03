@@ -244,6 +244,7 @@ def cmd_open():
     _init()
     _archive()
     readme_url = osp.join(osp.splitext(GITHUB_URL)[0], 'blob/master/README.md')
+    readme_url += datetime.date.today().strftime('#%Y-%m-%d')
     cmd = 'open {url}'.format(url=readme_url)
     print('Opening {:s}'.format(readme_url))
     subprocess.call(cmd, shell=True)
