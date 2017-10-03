@@ -8,7 +8,7 @@ import sys
 from setuptools import setup
 
 
-version = '0.0.1'
+version = '0.1.0'
 
 
 def get_data_files():
@@ -50,7 +50,7 @@ def get_data_files():
 if sys.argv[-1] == 'release':
     for cmd in [
             'python setup.py sdist',
-            'twine upload dist/todo-%s.tar.gz' % version,
+            'twine upload dist/todo.py-%s.tar.gz' % version,
             'git tag %s' % version,
             'git push origin master --tags',
             ]:
