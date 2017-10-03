@@ -177,6 +177,7 @@ def cli():
 @click.argument('remote_url', required=False)
 def cmd_init(remote_url):
     _init(remote_url)
+    _pull_cache_dir()
 
 
 @cli.command('show', help='Show todo')
