@@ -4,6 +4,7 @@ import ConfigParser
 import datetime
 import os
 import os.path as osp
+import platform
 import pkg_resources
 import re
 import shlex
@@ -167,6 +168,15 @@ def _archive(push=True):
         _push_cache_dir()
 
 
+def _get_open_cmd():
+    if platform.uname()[0] == 'Linux':
+        return 'gnome-open'
+    elif platform.uname()[0] == 'Darwin':
+        return 'open'
+    else:
+        raise RuntimeError('Unsupported OS for open command')
+
+
 # -----------------------------------------------------------------------------
 
 
@@ -228,7 +238,7 @@ def cmd_open():
     _archive()
     readme_url = osp.join(osp.splitext(GITHUB_URL)[0], 'blob/master/README.md')
     readme_url += datetime.date.today().strftime('#%Y-%m-%d')
-    cmd = 'open {url}'.format(url=readme_url)
+    cmd = '{cmd} {url}'.format(cmd=_get_open_cmd(), url=readme_url)
     print('Opening {:s}'.format(readme_url))
     subprocess.call(cmd, shell=True)
 
