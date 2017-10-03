@@ -155,7 +155,7 @@ def _archive():
         os.makedirs(archive_dir)
     archive_fn = osp.join(archive_dir, date.strftime('%Y-%m.md'))
     print('Archiving completed TODO to: {:s}'.format(archive_fn))
-    open(archive_fn, 'a').write(content_archive)
+    open(archive_fn, 'a').write('\n\n' + content_archive)
 
     # main
     content_remain = render_todo(datetime.date.today(), todos_remain)
