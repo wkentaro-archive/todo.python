@@ -18,3 +18,7 @@ install:
 
 script:
 - pytest -vs .
+
+branches:
+  only:
+    - master
