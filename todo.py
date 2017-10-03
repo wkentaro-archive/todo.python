@@ -49,7 +49,7 @@ def parse_todo(content):
             text = m.groups()[1]
             todos.append([text, done, section, ''])
         else:
-            todos[-1][3] += line  # detail
+            todos[-1][3] += '\n' + line  # detail
 
     date = date or datetime.date.today()
 
