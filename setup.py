@@ -8,7 +8,7 @@ import sys
 from setuptools import setup
 
 
-version = '0.1.5'
+version = '0.2.0'
 
 
 def get_data_files():
