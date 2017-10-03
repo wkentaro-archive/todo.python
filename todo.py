@@ -114,8 +114,8 @@ def _archive():
 
     todos_remain = []
     todos_archive = []
-    for _ in range(len(todos)):
-        text, done, section, detail = todo = todos.pop()
+    for todo in todos[:]:
+        text, done, section, detail = todo
         if done:
             todos_archive.append(todo)
         else:
