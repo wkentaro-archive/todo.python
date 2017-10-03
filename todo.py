@@ -26,7 +26,7 @@ def parse_todo(content):
     h2 = None
     todos = []
     for line in content.splitlines():
-        line = line.strip()
+        line = line.rstrip()
         if not line:
             continue
 
@@ -43,9 +43,9 @@ def parse_todo(content):
             assert len(m.groups()) == 2
             done = m.groups()[0] == 'x'
             text = m.groups()[1]
-            todos.append((text, done, h3))
+            todos.append([text, done, h3, ''])
         else:
-            raise ValueError('Unexpected line: %s' % line)
+            todos[-1][3] += line  # detail
 
     date = date or datetime.date.today()
 
@@ -54,7 +54,7 @@ def parse_todo(content):
 
 def render_todo(date, todos):
     todo = []
-    for text, done, section in todos:
+    for text, done, section, detail in todos:
         if section is not None:
             if section not in todo:
                 todo.append('')
@@ -62,6 +62,8 @@ def render_todo(date, todos):
                 todo.append('')
         cross = 'x' if done else ' '
         todo.append('- [{:s}] {:s}'.format(cross, text))
+        if detail:
+            todo.append(detail)
     todo = '\n'.join(todo)
 
     content = '''\
@@ -113,7 +115,7 @@ def _archive():
     todos_remain = []
     todos_archive = []
     for _ in range(len(todos)):
-        text, done, section = todo = todos.pop()
+        text, done, section, detail = todo = todos.pop()
         if done:
             todos_archive.append(todo)
         else:
@@ -174,7 +176,9 @@ def cmd_edit():
 @cli.command('open', help='Open Github')
 def cmd_open():
     _archive()
-    cmd = 'open {url}'.format(url=osp.join(GITHUB_URL, 'blob/master/README.md'))
+    readme_url = osp.join(osp.splitext(GITHUB_URL)[0], 'blob/master/README.md')
+    cmd = 'open {url}'.format(url=readme_url)
+    print('Opening {:s}'.format(readme_url))
     subprocess.call(cmd, shell=True)
 
 
