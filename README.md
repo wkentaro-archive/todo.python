@@ -30,8 +30,7 @@ todo open  # pull -> archive -> push -> open
 Here, we demonstrate its feature with [the sample database](https://github.com/wkentaro/todo.py.sample).
 
 ```bash
-$ rm -f ~/.todo.py.cfg
-$ rm -rf ~/.cache/todo
+$ todo deinit
 
 $ todo init https://github.com/wkentaro/todo.py.sample.git
 Remote URL: https://github.com/wkentaro/todo.py.sample.git
