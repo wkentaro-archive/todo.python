@@ -15,12 +15,12 @@ import click
 
 
 __author__ = 'Kentaro Wada <www.kentaro.wada@gmail.com>'
-__version__ = pkg_resources.get_distribution('todo.py').version
+__version__ = pkg_resources.get_distribution('todo.python').version
 
 
 GITHUB_URL = None
 CACHE_DIR = osp.expanduser('~/.cache/todo')
-CONFIG_FILE = osp.expanduser('~/.todo.py.cfg')
+CONFIG_FILE = osp.expanduser('~/.todo.python.cfg')
 
 
 # -----------------------------------------------------------------------------
