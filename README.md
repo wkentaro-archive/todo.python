@@ -50,4 +50,6 @@ Pulling from remote: https://github.com/wkentaro/todo.py.sample.git
 ## School
 
 - [ ] Report of cs.1002
+
+$ todo open
 ```
