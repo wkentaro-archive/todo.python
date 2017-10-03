@@ -9,7 +9,7 @@ It uses Git repo for the database,
 and has feature of automated **sync** and **archive**.  
 The sample database is here: https://github.com/wkentaro/todo.python.sample.
 
-The difference from its alternatives such as Evernote and iOS TODO list
+The difference from its alternatives such as Evernote and iOS todo list
 is the feature of auto archiving.
 todo.py is designed for use of daily report on your work,
 and you can easily look back **what you completed at each day**
