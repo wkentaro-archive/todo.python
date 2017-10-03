@@ -50,7 +50,7 @@ def get_data_files():
 if sys.argv[-1] == 'release':
     for cmd in [
             'python setup.py sdist',
-            'twine upload dist/todo.py-%s.tar.gz' % version,
+            'twine upload dist/todo.python-%s.tar.gz' % version,
             'git tag %s' % version,
             'git push origin master --tags',
             ]:
@@ -58,14 +58,14 @@ if sys.argv[-1] == 'release':
     sys.exit(0)
 
 setup(
-    name='todo.py',
+    name='todo.python',
     version=version,
     packages=[''],
     description='Manage todo on git repo.',
     long_description=open('README.md').read(),
     author='Kentaro Wada',
     author_email='www.kentaro.wada@gmail.com',
-    url='http://github.com/wkentaro/todo.py',
+    url='http://github.com/wkentaro/todo.python',
     install_requires=open('requirements.txt').readlines(),
     license='MIT',
     keywords='utility',
