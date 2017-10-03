@@ -63,6 +63,7 @@ def render_todo(date, todos):
         cross = 'x' if done else ' '
         todo.append('- [{:s}] {:s}'.format(cross, text))
         if detail:
+            todo.append('')
             todo.append(detail)
     todo = '\n'.join(todo)
 
