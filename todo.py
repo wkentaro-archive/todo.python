@@ -183,32 +183,16 @@ def cmd_init(remote_url):
     _pull_cache_dir()
 
 
-def _ask_yn(prompt):
-    yes = None
-    while True:
-        yn = raw_input(prompt)
-        yn = yn.lower()
-        if yn in ['y', 'yes']:
-            yes = True
-            break
-        elif yn in ['n', 'no']:
-            yes = False
-            break
-        else:
-            print('Select [y/n]')
-    return yes
-
-
 @cli.command('deinit', help='Uninitialize')
 def cmd_deinit():
     if osp.exists(CONFIG_FILE):
         prompt = 'Can I remove config file "{:s}"? [y/n]: '.format(CONFIG_FILE)
-        if _ask_yn(prompt):
+        if click.confirm(prompt):
             os.remove(CONFIG_FILE)
 
     if osp.exists(CACHE_DIR):
         prompt = 'Can I remove cache dir "{:s}"? [y/n]: '.format(CACHE_DIR)
-        if _ask_yn(prompt):
+        if click.confirm(prompt):
             shutil.rmtree(CACHE_DIR)
 
 
