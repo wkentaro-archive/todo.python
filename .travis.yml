@@ -1,0 +1,20 @@
+sudo: false
+
+language: python
+
+python:
+- '2.7'
+- '3.3'
+
+install:
+- pip install -U pip setuptools
+- pip install hacking pytest
+
+before_script:
+- flake8 .
+
+install:
+- pip install .
+
+script:
+- pytest -vs .
