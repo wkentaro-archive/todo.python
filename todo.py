@@ -13,6 +13,7 @@ import subprocess
 import sys
 
 import click
+import six
 
 
 __author__ = 'Kentaro Wada <www.kentaro.wada@gmail.com>'
@@ -105,7 +106,7 @@ def _init(remote_url=None):
         if remote_url:
             GITHUB_URL = remote_url
         else:
-            GITHUB_URL = raw_input('Remote Git URL?: ')
+            GITHUB_URL = six.moves.input('Remote Git URL?: ')
         config.set('remote', 'url', GITHUB_URL)
         config.write(open(CONFIG_FILE, 'w'))
     print('Remote URL: {:s}'.format(GITHUB_URL))

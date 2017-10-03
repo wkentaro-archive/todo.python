@@ -4,6 +4,8 @@ import os.path as osp
 import shutil
 import tempfile
 
+import six
+
 
 todo = None
 TMP_DIR = None
@@ -58,4 +60,4 @@ def test_render_todo():
     ]
     content = todo.render_todo(datetime.date.today(), todos)
     print(content)
-    assert isinstance(content, basestring)
+    assert isinstance(content, six.types.StringTypes)
