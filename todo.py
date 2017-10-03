@@ -127,7 +127,7 @@ def _push_cache_dir():
             break
 
 
-def _archive():
+def _archive(push=True):
     _pull_cache_dir()
 
     readme_fn = osp.join(CACHE_DIR, 'README.md')
@@ -161,7 +161,8 @@ def _archive():
     content_remain = render_todo(datetime.date.today(), todos_remain)
     open(readme_fn, 'w').write(content_remain)
 
-    _push_cache_dir()
+    if push:
+        _push_cache_dir()
 
 
 # -----------------------------------------------------------------------------
@@ -193,7 +194,7 @@ def cmd_show():
 @cli.command('edit', help='Edit todo')
 def cmd_edit():
     _init()
-    _archive()
+    _archive(push=False)
     readme_fn = osp.join(CACHE_DIR, 'README.md')
     date, todos = parse_todo(open(readme_fn).read())
     content = render_todo(date, todos)
