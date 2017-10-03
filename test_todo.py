@@ -26,7 +26,7 @@ def teardown_module(module):
 
 def test__get_open_cmd():
     cmd = todo._get_open_cmd()
-    assert cmd in ['open', 'gnome-oepn']
+    assert cmd in ['open', 'gnome-open']
 
 
 def test__init():
