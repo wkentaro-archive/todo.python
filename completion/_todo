@@ -1,0 +1,9 @@
+#compdef todo
+
+_todo () {
+  local e
+  e=$(dirname ${funcsourcetrace[1]%:*})/todo-completion.bash
+  if [ -f $e ]; then
+    . $e
+  fi
+}

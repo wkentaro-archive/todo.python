@@ -4,6 +4,7 @@ import ConfigParser
 import datetime
 import os
 import os.path as osp
+import pkg_resources
 import re
 import shlex
 import subprocess
@@ -13,7 +14,7 @@ import click
 
 
 __author__ = 'Kentaro Wada <www.kentaro.wada@gmail.com>'
-__version__ = '0.0.1'
+__version__ = pkg_resources.get_distribution('todo.py').version
 
 
 GITHUB_URL = None
