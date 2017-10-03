@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
+import ConfigParser
 import datetime
 import os
 import os.path as osp
 import re
 import shlex
 import subprocess
+import sys
 
 import click
 
@@ -14,8 +16,9 @@ __author__ = 'Kentaro Wada <www.kentaro.wada@gmail.com>'
 __version__ = '0.0.1'
 
 
-GITHUB_URL = 'https://github.com/wkentaro/todo.git'
+GITHUB_URL = None
 CACHE_DIR = osp.expanduser('~/.cache/todo')
+CONFIG_FILE = osp.expanduser('~/.todo.py.cfg')
 
 
 # -----------------------------------------------------------------------------
@@ -23,7 +26,7 @@ CACHE_DIR = osp.expanduser('~/.cache/todo')
 
 def parse_todo(content):
     date = None
-    h2 = None
+    section = None
     todos = []
     for line in content.splitlines():
         line = line.rstrip()
@@ -37,13 +40,13 @@ def parse_todo(content):
             else:
                 raise ValueError
         elif line.startswith('## '):
-            h3 = line  # todo section
+            section = line  # todo section
         elif line.startswith('- '):
             m = re.match('^- \[( |x)\] (.*)$', line)
             assert len(m.groups()) == 2
             done = m.groups()[0] == 'x'
             text = m.groups()[1]
-            todos.append([text, done, h3, ''])
+            todos.append([text, done, section, ''])
         else:
             todos[-1][3] += line  # detail
 
@@ -75,6 +78,24 @@ def render_todo(date, todos):
     content = content.format(date=date.strftime('%Y-%m-%d'), todo=todo)
 
     return content
+
+
+def _init(remote_url=None):
+    global GITHUB_URL
+    config = ConfigParser.ConfigParser()
+    if osp.exists(CONFIG_FILE):
+        if remote_url:
+            print('Config file already exists: {:s}'.format(CONFIG_FILE))
+            sys.exit(1)
+        config.readfp(open(CONFIG_FILE))
+        GITHUB_URL = config.get('remote', 'url')
+    else:
+        config.add_section('remote')
+        if not remote_url:
+            GITHUB_URL = raw_input('Remote Git URL?: ')
+        config.set('remote', 'url', GITHUB_URL)
+        config.write(open(CONFIG_FILE, 'w'))
+    print('Remote URL: {:s}'.format(GITHUB_URL))
 
 
 def _pull_cache_dir():
@@ -151,8 +172,15 @@ def cli():
     pass
 
 
+@cli.command('init', help='Initialize')
+@click.argument('remote_url', required=False)
+def cmd_init(remote_url):
+    _init(remote_url)
+
+
 @cli.command('show', help='Show todo')
 def cmd_show():
+    _init()
     _archive()
     readme_fn = osp.join(CACHE_DIR, 'README.md')
     date, todos = parse_todo(open(readme_fn).read())
@@ -162,6 +190,7 @@ def cmd_show():
 
 @cli.command('edit', help='Edit todo')
 def cmd_edit():
+    _init()
     _archive()
     readme_fn = osp.join(CACHE_DIR, 'README.md')
     date, todos = parse_todo(open(readme_fn).read())
@@ -177,6 +206,7 @@ def cmd_edit():
 
 @cli.command('open', help='Open Github')
 def cmd_open():
+    _init()
     _archive()
     readme_url = osp.join(osp.splitext(GITHUB_URL)[0], 'blob/master/README.md')
     cmd = 'open {url}'.format(url=readme_url)
