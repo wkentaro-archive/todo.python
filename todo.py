@@ -65,6 +65,7 @@ def render_todo(date, todos):
         if detail:
             todo.append('')
             todo.append(detail)
+            todo.append('')
     todo = '\n'.join(todo)
 
     content = '''\
