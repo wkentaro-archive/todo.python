@@ -225,7 +225,9 @@ def cmd_show():
     readme_fn = osp.join(CACHE_DIR, 'README.md')
     date, todos = parse_todo(open(readme_fn).read())
     content = render_todo(date, todos, color=True)
-    click.echo_via_pager(content.decode('utf-8'), color=True)
+    if six.PY2:
+        content = content.decode('utf-8')
+    click.echo_via_pager(content, color=True)
 
 
 @cli.command('edit', help='Edit todo')
