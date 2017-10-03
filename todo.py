@@ -199,8 +199,8 @@ def cmd_edit():
     with open(readme_fn, 'w') as f:
         f.write(content)
 
-    cmd = 'vim +{lineno} {fname}'.format(lineno=len(content.splitlines()),
-                                         fname=readme_fn)
+    editor = os.environ.get('EDITOR', 'vim')
+    cmd = '{editor} {fname}'.format(editor=editor, fname=readme_fn)
     subprocess.call(cmd, shell=True)
     _push_cache_dir()
 
