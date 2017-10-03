@@ -19,6 +19,7 @@ REPO=todo
 hub create -p $REPO  # Or create it on browser (private repo is recommended)
 
 todo init https://github.com/$GITHUB_NAME/$REPO.git
-todo edit
-todo show
+todo edit  # pull -> archive -> edit -> push
+todo show  # pull -> archive -> show
+todo open  # pull -> archive -> open
 ```
