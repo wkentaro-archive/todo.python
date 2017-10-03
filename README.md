@@ -3,7 +3,7 @@
 Manage todo on git repo.
 
 It use Git repo for the database,
-and has feature of automated ***sync*** and ***archive***.  
+and has feature of automated **sync** and **archive**.  
 The sample database is here: https://github.com/wkentaro/todo.py.sample.
 
 
