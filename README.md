@@ -20,7 +20,7 @@ and you can easily look back **what you completed at each day**
 
 
 ```bash
-pip install git+https://github.com/wkentaro/todo.python
+pip install todo.python
 
 GITHUB_NAME=<YOUR GITHUB NAME>
 REPO=todo
