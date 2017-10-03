@@ -174,7 +174,7 @@ def cmd_edit():
 @cli.command('open', help='Open Github')
 def cmd_open():
     _archive()
-    cmd = 'open {url}'.format(url=GITHUB_URL)
+    cmd = 'open {url}'.format(url=osp.join(GITHUB_URL, 'blob/master/README.md'))
     subprocess.call(cmd, shell=True)
 
 
