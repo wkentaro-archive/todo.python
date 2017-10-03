@@ -70,10 +70,10 @@ def render_todo(date, todos, color=False):
     todo = []
     for text, done, section, detail in todos:
         if section is not None:
+            if color:
+                section = click.style(section, 'blue')
             if section not in todo:
                 todo.append('')
-                if color:
-                    section = click.style(section, 'blue')
                 todo.append(section)
                 todo.append('')
         cross = 'x' if done else ' '
