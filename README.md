@@ -1,5 +1,8 @@
 # todo.python
 
+[![](https://img.shields.io/pypi/v/todo.python.svg)](https://pypi.python.org/pypi/todo.python)
+<!-- [![](https://travis-ci.org/wkentaro/todo.python.svg?branch=master)](https://travis-ci.org/wkentaro/todo.python) -->
+
 Manage todo on git repo.
 
 It uses Git repo for the database,
