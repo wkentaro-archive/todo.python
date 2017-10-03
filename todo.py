@@ -92,7 +92,9 @@ def _init(remote_url=None):
         GITHUB_URL = config.get('remote', 'url')
     else:
         config.add_section('remote')
-        if not remote_url:
+        if remote_url:
+            GITHUB_URL = remote_url
+        else:
             GITHUB_URL = raw_input('Remote Git URL?: ')
         config.set('remote', 'url', GITHUB_URL)
         config.write(open(CONFIG_FILE, 'w'))
