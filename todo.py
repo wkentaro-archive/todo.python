@@ -129,9 +129,9 @@ def _archive():
     archive_dir = osp.join(CACHE_DIR, date.strftime('%Y'))
     if not osp.exists(archive_dir):
         os.makedirs(archive_dir)
-    archive_fn = osp.join(archive_dir, date.strftime('%Y-%m-%d.md'))
+    archive_fn = osp.join(archive_dir, date.strftime('%Y-%m.md'))
     print('Archiving completed TODO to: {:s}'.format(archive_fn))
-    open(archive_fn, 'w').write(content_archive)
+    open(archive_fn, 'a').write(content_archive)
 
     # main
     content_remain = render_todo(datetime.date.today(), todos_remain)
