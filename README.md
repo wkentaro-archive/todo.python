@@ -16,12 +16,17 @@ and you can easily look back **what you completed at each day**
 [as shown in the sample](https://github.com/wkentaro/todo.python.sample/blob/master/2017/2017-10.md).
 
 
+## Installation
+
+```bash
+pip install todo.python
+```
+
+
 ## Usage
 
 
 ```bash
-pip install todo.python
-
 GITHUB_NAME=<YOUR GITHUB NAME>
 REPO=todo
 # https://github.com/github/hub
