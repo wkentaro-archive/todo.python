@@ -120,11 +120,13 @@ def _pull_cache_dir():
     if not osp.exists(CACHE_DIR):
         cmd = 'git clone {url} {dir}'.format(url=GITHUB_URL, dir=CACHE_DIR)
         print('+ {cmd}'.format(cmd=cmd))
-        subprocess.call(shlex.split(cmd))
+        ret = subprocess.call(shlex.split(cmd))
     else:
         cmd = 'git pull origin master'
-        subprocess.call(shlex.split(cmd), cwd=CACHE_DIR,
-                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        ret = subprocess.call(shlex.split(cmd), cwd=CACHE_DIR,
+                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if ret != 0:
+        print('Failed to pull from remote: {:s}'.format(GITHUB_URL))
 
 
 def _push_cache_dir():
