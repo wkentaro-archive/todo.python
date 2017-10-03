@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-import ConfigParser
+try:
+    import ConfigParser as configparser
+except ImportError:
+    import configparser
 import datetime
 import os
 import os.path as osp
@@ -94,7 +97,7 @@ def render_todo(date, todos, color=False):
 
 def _init(remote_url=None):
     global GITHUB_URL
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     if osp.exists(CONFIG_FILE):
         if remote_url:
             print('Config file already exists: {:s}'.format(CONFIG_FILE))
