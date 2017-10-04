@@ -53,9 +53,9 @@ def parse_todo(content):
             assert len(m.groups()) == 2
             done = m.groups()[0] == 'x'
             text = m.groups()[1]
-            todos.append([text, done, section, ''])
+            todos.append((text, done, section, []))
         else:
-            todos[-1][3] += line  # detail
+            todos[-1][3].append(line)  # detail
 
     date = date or datetime.date.today()
 
@@ -82,7 +82,7 @@ def render_todo(date, todos, color=False):
         todo.append('- [{:s}] {:s}'.format(cross, text))
         if detail:
             todo.append('')
-            todo.append(detail)
+            todo.append('\n'.join(detail))
             todo.append('')
     todo = '\n'.join(todo)
 
