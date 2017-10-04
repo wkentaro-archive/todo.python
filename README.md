@@ -60,14 +60,4 @@ remote: Total 46 (delta 0), reused 0 (delta 0), pack-reused 46
 Unpacking objects: 100% (46/46), done.
 ```
 
-```bash
-todo show
-```
-
-![](static/todo.show.gif)
-
-```bash
-todo edit
-```
-
-![](static/todo.edit.gif)
+![](static/todo.show.gif) ![](static/todo.edit.gif)
