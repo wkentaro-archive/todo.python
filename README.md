@@ -58,15 +58,16 @@ Cloning into '/Users/minerva/.cache/todo'...
 remote: Counting objects: 46, done.
 remote: Total 46 (delta 0), reused 0 (delta 0), pack-reused 46
 Unpacking objects: 100% (46/46), done.
-
-$ todo show
-Remote URL: https://github.com/wkentaro/todo.python.sample.git
-Pulling from remote: https://github.com/wkentaro/todo.python.sample.git
-# 2017-10-04
-
-## School
-
-- [ ] Report of cs.1002
-
-$ todo open
 ```
+
+```bash
+todo show
+```
+
+![](static/todo.show.gif)
+
+```bash
+todo edit
+```
+
+![](static/todo.edit.gif)
