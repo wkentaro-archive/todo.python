@@ -220,10 +220,14 @@ def cmd_deinit():
             shutil.rmtree(CACHE_DIR)
 
 
-@cli.command('show', help='Show todo')
-def cmd_show():
+@cli.command('view', help='Show todo')
+def cmd_view():
     _init()
     _archive()
+    _view()
+
+
+def _view():
     readme_fn = osp.join(CACHE_DIR, 'README.md')
     date, todos = parse_todo(open(readme_fn).read())
     content = render_todo(date, todos, color=True)
@@ -246,6 +250,8 @@ def cmd_edit():
     cmd = '{editor} {fname}'.format(editor=editor, fname=readme_fn)
     subprocess.call(cmd, shell=True)
     _push_cache_dir()
+
+    _view()
 
 
 @cli.command('open', help='Open Github')
