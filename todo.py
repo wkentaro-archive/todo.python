@@ -162,8 +162,6 @@ def _archive(push=True):
             todos_archive.append(todo)
         else:
             todos_remain.append(todo)
-    if not todos_archive:
-        return
     content_archive = render_todo(date, todos_archive)
 
     # archive
