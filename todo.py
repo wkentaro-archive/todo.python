@@ -52,8 +52,8 @@ def parse_todo(content):
             m = re.match('^- \[( |x)\] (.*)$', line)
             assert len(m.groups()) == 2
             done = m.groups()[0] == 'x'
-            text = m.groups()[1]
-            todos.append((text, done, section, []))
+            title = m.groups()[1]
+            todos.append((title, done, section, []))
         else:
             todos[-1][3].append(line)  # detail
 
@@ -68,7 +68,7 @@ def render_todo(date, todos, color=False):
         date = click.style(date, 'green')
 
     todo = []
-    for text, done, section, detail in todos:
+    for title, done, section, detail in todos:
         if section is not None:
             if color:
                 section = click.style(section, 'blue')
@@ -78,8 +78,8 @@ def render_todo(date, todos, color=False):
                 todo.append('')
         cross = 'x' if done else ' '
         if color and not done:
-            text = click.style(text, underline=True)
-        todo.append('- [{:s}] {:s}'.format(cross, text))
+            title = click.style(title, underline=True)
+        todo.append('- [{:s}] {:s}'.format(cross, title))
         if detail:
             todo.append('')
             todo.append('\n'.join(detail))
@@ -157,7 +157,7 @@ def _archive(push=True):
     todos_remain = []
     todos_archive = []
     for todo in todos[:]:
-        text, done, section, detail = todo
+        title, done, section, detail = todo
         if done:
             todos_archive.append(todo)
         else:
