@@ -54,9 +54,10 @@ def test_parse_todo():
 
 def test_render_todo():
     todos = [
-        ('Survey', True, '### Research', '  THIS IS MEMO.\n  THIS IS MEMO.'),
-        ('Implementation', False, '### Research',
-         '  - Reference: https://github.com/wkentaro/todo.python'),
+        dict(title='Survey', done=True, section='Research',
+             detail=['  THIS IS MEMO.', '  THIS IS MEMO.']),
+        dict(title='Implementation', done=False, section='Research',
+             detail=['  - ref: https://github.com/wkentaro/todo.python']),
     ]
     content = todo.render_todo(datetime.date.today(), todos)
     print(content)
