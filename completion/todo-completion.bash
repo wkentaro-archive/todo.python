@@ -13,7 +13,7 @@ _todo()
 
     if [ ${COMP_CWORD} -eq 1 ]; then
       if [[ ${opts} = "" ]]; then
-        opts="edit init open show"
+        opts="edit init open view"
       fi
     fi
 
