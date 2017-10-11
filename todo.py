@@ -183,6 +183,7 @@ def _archive(push=True):
     if osp.exists(archive_fn):
         data = yaml.load(open(archive_fn))
     data.append({date.strftime('%Y-%m-%d'): todos_archive})
+    print('Archiving completed TODOs to: {:s}'.format(archive_fn))
     yaml.safe_dump(data, open(archive_fn, 'w'), default_flow_style=False)
 
     # main
