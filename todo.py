@@ -17,6 +17,7 @@ import sys
 
 import click
 import six
+import yaml
 
 
 __author__ = 'Kentaro Wada <www.kentaro.wada@gmail.com>'
@@ -47,7 +48,8 @@ def parse_todo(content):
             else:
                 raise ValueError
         elif line.startswith('## '):
-            section = line  # todo section
+            m = re.match('^## (.*)$', line)
+            section = m.groups()[0]
         elif line.startswith('- '):
             m = re.match('^- \[( |x)\] (.*)$', line)
             assert len(m.groups()) == 2
@@ -80,6 +82,7 @@ def render_todo(date, todos, color=False):
         detail = todo['detail']
 
         if section is not None:
+            section = '## {:s}'.format(section)
             if color:
                 section = click.style(section, 'blue')
             if section not in content_todo:
@@ -173,15 +176,12 @@ def _archive(push=True):
         else:
             todos_remain.append(todo)
     del todos
-    content_archive = render_todo(date, todos_archive)
 
     # archive
-    archive_dir = osp.join(CACHE_DIR, date.strftime('%Y'))
-    if not osp.exists(archive_dir):
-        os.makedirs(archive_dir)
-    archive_fn = osp.join(archive_dir, date.strftime('%Y-%m.md'))
-    print('Archiving completed TODO to: {:s}'.format(archive_fn))
-    open(archive_fn, 'a').write('\n\n' + content_archive)
+    archive_fn = osp.join(CACHE_DIR, 'archive.yaml')
+    data = yaml.load(open(archive_fn))
+    data.append({date.strftime('%Y-%m-%d'): todos_archive})
+    yaml.safe_dump(data, open(archive_fn, 'w'), default_flow_style=False)
 
     # main
     content_remain = render_todo(datetime.date.today(), todos_remain)
