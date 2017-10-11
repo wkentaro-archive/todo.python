@@ -13,7 +13,7 @@ The difference from its alternatives such as Evernote and iOS todo list
 is the feature of auto archiving.
 *todo.python* is designed for use of daily report on your work,
 and you can easily look back **what you completed at each day**
-[as shown in the sample](https://github.com/wkentaro/todo.python.sample/blob/master/2017/2017-10.md).
+[as shown in the sample](https://github.com/wkentaro/todo.python.sample/blob/master/archive.yaml).
 
 
 ## Installation
