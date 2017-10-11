@@ -53,9 +53,14 @@ def parse_todo(content):
             assert len(m.groups()) == 2
             done = m.groups()[0] == 'x'
             title = m.groups()[1]
-            todos.append((title, done, section, []))
+            todos.append({
+                'title': title,
+                'done': done,
+                'section': section,
+                'detail': [],
+            })
         else:
-            todos[-1][3].append(line)  # detail
+            todos[-1]['detail'].append(line)
 
     date = date or datetime.date.today()
 
@@ -67,30 +72,36 @@ def render_todo(date, todos, color=False):
     if color:
         date = click.style(date, 'green')
 
-    todo = []
-    for title, done, section, detail in todos:
+    content_todo = []
+    for todo in todos:
+        title = todo['title']
+        done = todo['done']
+        section = todo['section']
+        detail = todo['detail']
+
         if section is not None:
             if color:
                 section = click.style(section, 'blue')
-            if section not in todo:
-                todo.append('')
-                todo.append(section)
-                todo.append('')
+            if section not in content_todo:
+                content_todo.append('')
+                content_todo.append(section)
+                content_todo.append('')
+
         cross = 'x' if done else ' '
         if color and not done:
             title = click.style(title, underline=True)
-        todo.append('- [{:s}] {:s}'.format(cross, title))
+        content_todo.append('- [{:s}] {:s}'.format(cross, title))
+
         if detail:
-            todo.append('')
-            todo.append('\n'.join(detail))
-            todo.append('')
-    todo = '\n'.join(todo)
+            content_todo.append('')
+            content_todo.append('\n'.join(detail))
+            content_todo.append('')
 
     content = '''\
 {date}
 {todo}
 '''
-    content = content.format(date=date, todo=todo)
+    content = content.format(date=date, todo='\n'.join(content_todo))
 
     return content
 
@@ -156,12 +167,12 @@ def _archive(push=True):
 
     todos_remain = []
     todos_archive = []
-    for todo in todos[:]:
-        title, done, section, detail = todo
-        if done:
+    for todo in todos:
+        if todo['done']:
             todos_archive.append(todo)
         else:
             todos_remain.append(todo)
+    del todos
     content_archive = render_todo(date, todos_archive)
 
     # archive
